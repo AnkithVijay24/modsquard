@@ -1,54 +1,89 @@
-# React + TypeScript + Vite
+# ModSquad - Car Enthusiast Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ModSquad is a modern web platform for car enthusiasts to share their builds, connect with other modders, and showcase their automotive passion.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🚗 Vehicle Build Management
+- 👥 User Profiles & Authentication
+- 📸 Image Upload & Gallery
+- 💬 Community Interaction
+- 🔧 Build Modification Tracking
+- 👑 Admin Dashboard
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React, TypeScript, Tailwind CSS
+- **Backend**: Node.js, Express
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: JWT
+- **File Storage**: Local (configurable for cloud storage)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Getting Started
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Prerequisites
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Node.js (v16 or higher)
+- npm or yarn
+- PostgreSQL
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/modsquad.git
+   cd modsquad
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   Create a `.env` file in the root directory with:
+   ```
+   DATABASE_URL="postgresql://user:password@localhost:5432/modsquad"
+   JWT_SECRET="your-secret-key"
+   ```
+
+4. Set up the database:
+   ```bash
+   npx prisma migrate dev
+   npx prisma generate
+   ```
+
+5. Start the development server:
+   ```bash
+   # Start frontend
+   npm run dev
+
+   # Start backend (in a new terminal)
+   npm run server
+
+   # Or start both concurrently
+   npm run dev:all
+   ```
+
+## Development
+
+- Frontend runs on: http://localhost:3000
+- Backend runs on: http://localhost:5001
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+Your Name - [@yourtwitter](https://twitter.com/yourtwitter)
+
+Project Link: [https://github.com/yourusername/modsquad](https://github.com/yourusername/modsquad)
