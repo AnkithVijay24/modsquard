@@ -1,0 +1,96 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(uuid())
+  username      String    @unique
+  email         String    @unique
+  password      String
+  isAdmin       Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  profile       Profile?
+  builds        Build[]
+  comments      Comment[]
+  likes         Like[]
+}
+
+model Profile {
+  id            String    @id @default(uuid())
+  userId        String    @unique
+  bio           String?
+  avatarUrl     String?
+  location      String?
+  instagramUrl  String?
+  facebookUrl   String?
+  youtubeUrl    String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  user          User      @relation(fields: [userId], references: [id])
+}
+
+model Build {
+  id            String    @id @default(uuid())
+  title         String
+  description   String
+  userId        String
+  carMake       String
+  carModel      String
+  carYear       Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  user          User      @relation(fields: [userId], references: [id])
+  images        Image[]   @relation("BuildImages")
+  modifications Modification[] @relation("BuildModifications")
+  comments      Comment[] @relation("BuildComments")
+  likes         Like[]    @relation("BuildLikes")
+}
+
+model Image {
+  id            String    @id @default(uuid())
+  url           String
+  buildId       String
+  createdAt     DateTime  @default(now())
+  build         Build     @relation("BuildImages", fields: [buildId], references: [id], onDelete: Cascade)
+}
+
+model Modification {
+  id            String    @id @default(uuid())
+  name          String
+  description   String
+  category      String
+  price         Float?
+  installDate   DateTime?
+  buildId       String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  build         Build     @relation("BuildModifications", fields: [buildId], references: [id], onDelete: Cascade)
+}
+
+model Comment {
+  id            String    @id @default(uuid())
+  content       String
+  userId        String
+  buildId       String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  user          User      @relation(fields: [userId], references: [id])
+  build         Build     @relation("BuildComments", fields: [buildId], references: [id], onDelete: Cascade)
+}
+
+model Like {
+  id            String    @id @default(uuid())
+  userId        String
+  buildId       String
+  createdAt     DateTime  @default(now())
+  user          User      @relation(fields: [userId], references: [id])
+  build         Build     @relation("BuildLikes", fields: [buildId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, buildId])
+} 
